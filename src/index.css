@@ -1,13 +1,17 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import "~materialize-css/dist/css/materialize.min.css";
+
+.active{
+    color: #029f5b;
+    font-size: 18px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.card .card-content {
+    padding: 24px;
+    min-height: 20rem;
+    border-radius: 0 0 2px 2px;
+    cursor: pointer;
+}
+
+.material-icons:hover{
+    color: brown;
 }
