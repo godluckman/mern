@@ -1,11 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import { useNavigate } from "react-router-dom";
+import Pagination from "./pagination";
 
 const AllData = () => {
     let navigate = useNavigate();
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [dataPerPage] = useState(6);
+    const lastDataIndex = currentPage * dataPerPage;
+    const firstDataIndex = lastDataIndex  - dataPerPage;
+    const currentData = items.slice(firstDataIndex, lastDataIndex);
 
     const deleteHandler = async (event, id) => {
         event.stopPropagation();
@@ -21,6 +27,21 @@ const AllData = () => {
 
     const directHandler = async (key) => {
         navigate(`/${key}`)
+    }
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    }
+    
+    const nextPage = () => {
+        if(currentPage< items.length/dataPerPage){
+        setCurrentPage(prev => prev + 1);
+        }
+    }
+    const prevPage = () => {
+        if (currentPage > 1){
+            setCurrentPage(prev => prev - 1);
+        }
     }
 
     useEffect(() => {
@@ -48,7 +69,7 @@ const AllData = () => {
     } else {
         return (
             <div className="row">
-                {items.map(item => (
+                {currentData.map(item => (
                     <div className="col s12 m6" key={item.id} onClick={()=>directHandler(item.name)}>
                         <div className="card blue-grey darken-1">
                             <div className="card-content white-text" >
@@ -58,6 +79,13 @@ const AllData = () => {
                         </div>
                     </div>
                 ))}
+                <a href="#"><i className="material-icons" onClick={prevPage}>chevron_left</i></a>
+                <Pagination
+                    dataPerPage={dataPerPage}
+                    totalData={items.length}
+                    paginate={paginate}
+                    />
+                <a href="#"><i className="material-icons" onClick={nextPage}>chevron_right</i></a>
             </div>
         );
     }

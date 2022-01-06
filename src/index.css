@@ -15,3 +15,7 @@
 .material-icons:hover{
     color: brown;
 }
+
+.pagination{
+    display: inline-block;
+}
